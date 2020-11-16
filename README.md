@@ -13,7 +13,25 @@ To fetch the keystore you have to launch this command from terminal:
 ````
 $ expo fetch:android:keystore
 ````
+which will give you an output like this:
+````
+Accessing credentials for USERNAME in project test-app
+Saving Keystore to /path/to/your/project/test-app/test-app.jks
+Keystore credentials
+  Keystore password: a_long_password
+  Key alias:         a_long_alias
+  Key password:      another_long_password
+
+  Path to Keystore:  /path/to/yout/project/test-app/test-app.jks
+````
 It writes keystore to PROJECT_DIR/PROJECT_NAME.jks and prints passwords to stdout. It is VERY important to save these passwords, as you need them later to fill the expo_data.json file.
+
+**N.B.** 
+if the command fails with `There is no valid Keystore defined for this app` you need to build them for the first time using the expo service with:
+````
+$ expo build:android
+````
+During the process, expo will take care of creating a unique keystore for your APK.
 
 You'll need to provide these informations in the json file, which will be parsed at the beginning of the process:
 ````
