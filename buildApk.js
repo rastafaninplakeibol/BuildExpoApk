@@ -8,8 +8,11 @@ process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = data.EXPO_ANDROID_KEYSTORE_PASSWORD
 process.env.EXPO_ANDROID_KEY_PASSWORD = data.EXPO_ANDROID_KEY_PASSWORD
 process.env.EXPO_PASSWORD = data.EXPO_PASSWORD
 process.env.EXPO_USERNAME = data.EXPO_USERNAME
-if(fs.existsSync('./dist')) {
-	fs.rmdirSync('./dist', {recursive: true})
+
+
+
+if (fs.existsSync('./dist')) {
+	fs.rmdirSync('./dist', { recursive: true })
 }
 
 const exporter = spawn('expo', ['export', '--public-url', 'http://127.0.0.1:8000', '--dev']);
@@ -24,7 +27,7 @@ exporter.stderr.on('data', (data) => {
 
 exporter.on('close', (code) => {
 	console.log(`exporter process exited with code ${code}`);
-	if(code == 0) {
+	if (code == 0) {
 		process.chdir('./dist')
 		const pythonServer = spawn('python3', ['-m', 'http.server', '8000']);
 		pythonServer.stdout.on('data', (chunk) => {
@@ -35,11 +38,12 @@ exporter.on('close', (code) => {
 		})
 		process.chdir('..')
 		const turtleBuilder = spawn('turtle', [
-			'build:android', 
-			'--type', 'apk', 
-			'--keystore-alias', data.KEYSTORE_ALIAS,  
-			'--keystore-path', data.KEYSTORE_PATH, 
+			'build:android',
+			'--type', 'apk',
+			'--keystore-alias', data.KEYSTORE_ALIAS,
+			'--keystore-path', data.KEYSTORE_PATH,
 			'--public-url', 'http://127.0.0.1:8000/android-index.json',
+			'--build-dir', './build',
 		]);
 
 		turtleBuilder.stdout.on('data', (data) => {
@@ -54,6 +58,7 @@ exporter.on('close', (code) => {
 			if (code == 0) console.log('##Success##\nApk builded :)')
 			else {
 				console.error('Error building :( ')
+				pythonServer.kill()
 				process.exit(-1)
 			}
 			pythonServer.kill()
