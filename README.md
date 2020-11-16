@@ -14,7 +14,7 @@ $expo fetch:android:keystore
 ````
 It writes keystore to PROJECT_DIR/PROJECT_NAME.jks and prints passwords to stdout. It is VERY important to save these passwords, as you need them later to fill the expo_data.json file.
 
-You'll need to provide these informations in the json file, which will be parsed at the beginning:
+You'll need to provide these informations in the json file, which will be parsed at the beginning of the process:
 ````
 {
 	"EXPO_ANDROID_KEYSTORE_PASSWORD": "",
