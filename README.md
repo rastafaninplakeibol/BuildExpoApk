@@ -13,3 +13,15 @@ To fetch the keystore you have to launch this command from terminal:
 $expo fetch:android:keystore
 ````
 It writes keystore to PROJECT_DIR/PROJECT_NAME.jks and prints passwords to stdout. It is VERY important to save these passwords, as you need them later to fill the expo_data.json file.
+
+You'll need to provide these informations in the json file, which will be parsed at the beginning:
+````
+{
+	"EXPO_ANDROID_KEYSTORE_PASSWORD": "",
+	"EXPO_ANDROID_KEY_PASSWORD": "",
+	"KEYSTORE_ALIAS": "",
+	"KEYSTORE_PATH": "",
+	"EXPO_PASSWORD": "",
+	"EXPO_USERNAME": ""
+}
+````
