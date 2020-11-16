@@ -49,9 +49,9 @@ exporter.on('close', (code) => {
 		})
 
 		turtleBuilder.on('close', (code) => {
-			if (code == 0) console.log('BUILDATO CON SUCCESSOOOOO')
+			if (code == 0) console.log('##Success##\nApk builded :)')
 			else {
-				console.error('Errore nella build :( ')
+				console.error('Error building :( ')
 				process.exit(-1)
 			}
 			pythonServer.kill()
