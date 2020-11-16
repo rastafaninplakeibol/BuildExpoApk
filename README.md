@@ -2,7 +2,7 @@
 
 It is a tool i made to build an Expo APK locally, without using the cloud service and avoiding to wait even hours in the queue to build just a test APK.
 
-# Before Building
+## Before Building
 In order to use it you need to have:
   1) an expo account 
   2) python3, nodejs and npm installed
@@ -29,13 +29,13 @@ You'll need to provide these informations in the json file, which will be parsed
 
 To build the APK, a server will be launched using python3 http.server module, listening on port 8000 (you can modify the address and the port of the server in the buildApk.js file if you need it, it may be useful if you want to use a custom deployment server which can be somewhere else other than localhost).
 
-# How to build
+## How to build
 Just launch
 ````
 $ node buildApk.js
 ````
 
-# After Building
+## After Building
 Once the APK is builded, the first run of the app must have the http python server listening, as the app needs to download assets like images or custom fonts. Of course if there are no assets you can skip this passage, otherwise you just need to launch
 ````
 $ python3 -m http.server 8000
