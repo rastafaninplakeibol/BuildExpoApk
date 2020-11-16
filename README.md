@@ -31,7 +31,7 @@ if the command fails with `There is no valid Keystore defined for this app` you 
 ````
 $ expo build:android
 ````
-During the process, expo will take care of creating a unique keystore for your APK.
+During the process, expo will take care of creating a unique keystore for your APK. You don't really need to wait for the build to be completed, you just have to tell expo to create the keystore, which is done at the beginning of the build process. 
 
 You'll need to provide these informations in the json file, which will be parsed at the beginning of the process:
 ````
@@ -67,6 +67,7 @@ Then you just need to launch
 ````
 $ node buildApk.js
 ````
+The generated APK should be in the './build' folder
 
 ## After Building
 Once the APK is builded, the first run of the app must have the http python server listening, as the app needs to download assets like images or custom fonts. Of course if there are no assets you can skip this passage, otherwise you just need to launch
@@ -74,3 +75,8 @@ Once the APK is builded, the first run of the app must have the http python serv
 $ python3 -m http.server 8000
 ````
 from the './dist' folder created by the building process
+
+
+## Known Problems:
+* You may need to setup the android SDK for turtle, which can be done only from root/sudo. You can launch `# turtle setup:android (--sdk-version X.Y.Z //optional)` to set it up, or run the script with sudo/root and turtle will do it automatically.
+
