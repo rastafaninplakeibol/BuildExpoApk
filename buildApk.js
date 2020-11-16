@@ -1,18 +1,13 @@
 const { spawn } = require('child_process');
 const fs = require('fs')
 
-const EXPO_ANDROID_KEYSTORE_PASSWORD = 'your_expo_android_keystore_password'
-const EXPO_ANDROID_KEY_PASSWORD = 'your_expo_android_key_password'
-const EXPO_PASSWORD = 'your_expo_account_password'
-const EXPO_USERNAME = 'your_expo_account_username'
-const KEYSTORE_ALIAS = 'keystore_alias'
-const KEYSTORE_PATH = 'keystore_path'
+const data = JSON.parse(fs.readFileSync('./expo_data.json'))
+console.log(data)
 
-
-process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = EXPO_ANDROID_KEYSTORE_PASSWORD
-process.env.EXPO_ANDROID_KEY_PASSWORD = EXPO_ANDROID_KEY_PASSWORD
-process.env.EXPO_PASSWORD = EXPO_PASSWORD
-process.env.EXPO_USERNAME = EXPO_USERNAME
+process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = data.EXPO_ANDROID_KEYSTORE_PASSWORD
+process.env.EXPO_ANDROID_KEY_PASSWORD = data.EXPO_ANDROID_KEY_PASSWORD
+process.env.EXPO_PASSWORD = data.EXPO_PASSWORD
+process.env.EXPO_USERNAME = data.EXPO_USERNAME
 if(fs.existsSync('./dist')) {
 	fs.rmdirSync('./dist', {recursive: true})
 }
@@ -42,8 +37,8 @@ exporter.on('close', (code) => {
 		const turtleBuilder = spawn('turtle', [
 			'build:android', 
 			'--type', 'apk', 
-			'--keystore-alias', KEYSTORE_ALIAS,  
-			'--keystore-path', KEYSTORE_PATH, 
+			'--keystore-alias', data.KEYSTORE_ALIAS,  
+			'--keystore-path', data.KEYSTORE_PATH, 
 			'--public-url', 'http://127.0.0.1:8000/android-index.json',
 		]);
 
