@@ -67,7 +67,7 @@ Then you just need to launch
 ````
 $ node buildApk.js
 ````
-The generated APK should be in the './build' folder
+The generated APK will be in the './build' folder
 
 ## After Building
 Once the APK is builded, the first run of the app must have the http python server listening, as the app needs to download assets like images or custom fonts. Of course if there are no assets you can skip this passage, otherwise you just need to launch
