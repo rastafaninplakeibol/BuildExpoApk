@@ -1,11 +1,18 @@
 const { spawn } = require('child_process');
 const fs = require('fs')
 
-process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = 'yourkeystorepassword'
-process.env.EXPO_ANDROID_KEY_PASSWORD = 'yourkeypassword'
-process.env.EXPO_PASSWORD = 'yourexpopassword'
-process.env.EXPO_USERNAME = 'yourexpousername'
+const EXPO_ANDROID_KEYSTORE_PASSWORD = 'your_expo_android_keystore_password'
+const EXPO_ANDROID_KEY_PASSWORD = 'your_expo_android_key_password'
+const EXPO_PASSWORD = 'your_expo_account_password'
+const EXPO_USERNAME = 'your_expo_account_username'
+const KEYSTORE_ALIAS = 'keystore_alias'
+const KEYSTORE_PATH = 'keystore_path'
 
+
+process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = EXPO_ANDROID_KEYSTORE_PASSWORD
+process.env.EXPO_ANDROID_KEY_PASSWORD = EXPO_ANDROID_KEY_PASSWORD
+process.env.EXPO_PASSWORD = EXPO_PASSWORD
+process.env.EXPO_USERNAME = EXPO_USERNAME
 if(fs.existsSync('./dist')) {
 	fs.rmdirSync('./dist', {recursive: true})
 }
@@ -35,8 +42,8 @@ exporter.on('close', (code) => {
 		const turtleBuilder = spawn('turtle', [
 			'build:android', 
 			'--type', 'apk', 
-			'--keystore-alias', 'yourkeystorealias',  
-			'--keystore-path', 'path_to_jks_file', 
+			'--keystore-alias', KEYSTORE_ALIAS,  
+			'--keystore-path', KEYSTORE_PATH, 
 			'--public-url', 'http://127.0.0.1:8000/android-index.json',
 		]);
 
@@ -49,9 +56,9 @@ exporter.on('close', (code) => {
 		})
 
 		turtleBuilder.on('close', (code) => {
-			if (code == 0) console.log('BUILDATO CON SUCCESSOOOOO')
+			if (code == 0) console.log('##Success##\nApk builded :)')
 			else {
-				console.error('Errore nella build :( ')
+				console.error('Error building :( ')
 				process.exit(-1)
 			}
 			pythonServer.kill()
