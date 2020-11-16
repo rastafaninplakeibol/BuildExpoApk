@@ -6,7 +6,7 @@ It is a tool i made to build an Expo APK locally, without using the cloud servic
 In order to use it you need to have:
   1) an expo account 
   2) python3, nodejs and npm installed
-  3) the expo-cli and turtle-cli packages installed from npm
+  3) the expo-cli and turtle-cli packages installed globally from npm
   4) your own keystore files fetched from the expo-cli
   
 To fetch the keystore you have to launch this command from terminal: 
@@ -78,7 +78,7 @@ from the './dist' folder created by the building process
 
 
 ## Troubleshooting:
-* You may need to setup the android SDK for turtle, which can be done only from root/sudo. You can launch `# turtle setup:android (--sdk-version X.Y.Z //optional)` to set it up, or run the script with sudo/root and turtle will do it automatically.
+* You may need to setup the android SDK for turtle. You can launch `$ turtle setup:android (--sdk-version X.Y.Z //optional)` to set it up, or run the script and turtle will do it automatically.
 * Expo, turtle etc. don't work well with node >= 15 (even the installation may be buggy), so use version manager like "n" to downgrade at least to a 14.x.x version, and reinstall them.
-* Running the code from sudo/root may create folders and files which will then need root access to be accessed, giving some headaches to the people who are, rightfully, trying to avoid to simply run everything as sudo. Try to avoid root/sudo as much as possible.
+* Running the code from sudo/root is much simpler than managing permissions, but it may create folders and files which will then need root access to be accessed, giving some headaches to the people who are, rightfully, trying to avoid to simply run everything as sudo. Try to avoid root/sudo as much as possible.
 
