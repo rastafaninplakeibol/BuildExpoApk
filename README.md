@@ -48,7 +48,22 @@ You'll need to provide these informations in the json file, which will be parsed
 To build the APK, a server will be launched using python3 http.server module, listening on port 8000 (you can modify the address and the port of the server in the buildApk.js file if you need it, it may be useful if you want to use a custom deployment server which can be somewhere else other than localhost).
 
 ## How to build
-Just launch
+Before launching the build program, there is just a little tweak on the turtle source code that must be done, because turtle does not accept HTTP custom developement endpoints, and it tells you that only HTTPS is supported, which is a little lie.
+
+In order to avoid to get a valid, signed HTTPS certificate, you just need to go to `/usr/local/lib/node_modules/turtle-cli/build/bin/utils/builder.js` and look for:
+````javascript
+....
+ if (cmd.publicUrl && !cmd.allowNonHttpsPublicUrl) {
+       const parsedPublicUrl = url_1.default.parse(cmd.publicUrl);
+       if (parsedPublicUrl.protocol !== 'https:') {
+            throw new ErrorWithCommandHelp_1.ErrorWithCommandHelp('--public-url is invalid - only HTTPS urls are supported');
+       }
+ }
+....
+````
+And comment out the check on https. Seems like there is a way to explicitly tells to turtle to not check for https, but i can't find a way to set that flag from command line.
+
+Then you just need to launch
 ````
 $ node buildApk.js
 ````
