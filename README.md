@@ -73,8 +73,6 @@ In order to avoid to get a valid, signed HTTPS certificate, you just need to go 
  }
 ....
 ````
-And comment out the check on https. Seems like there is a way to explicitly tells to turtle to not check for https, but i can't find a way to set that flag from command line.
-
 Then you just need to launch
 ````
 $ node buildApk.js
