@@ -58,7 +58,7 @@ which looks something like `https://exp.host/@yourusername/yourappname/index.exp
 
 If you don't want to rely on expo in any way you can go on reading the chapter.
 
-**N.B** Now there is no need as i've found the flag `--allow-non-https-public-url`, but if you run into some trouble because of the http link read the following chapter
+**N.B** Now there is no need as i've found the flag `--allow-non-https-public-url`, but if you run into some trouble because of the http url read the following chapter
 
 Before launching the build program, there is just a little tweak on the turtle source code that must be done, because turtle does not accept HTTP custom developement endpoints, and it tells you that only HTTPS is supported, which is a little lie.
 
