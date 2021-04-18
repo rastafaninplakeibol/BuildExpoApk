@@ -36,7 +36,7 @@ During the process, expo will take care of creating a unique keystore for your A
 You'll need to provide these informations in the json file, which will be parsed at the beginning of the process:
 ````
 {
-  "PUBLIC_URL": "",
+  	"PUBLIC_URL": "",
 	"EXPO_ANDROID_KEYSTORE_PASSWORD": "",
 	"EXPO_ANDROID_KEY_PASSWORD": "",
 	"KEYSTORE_ALIAS": "",
