@@ -46,7 +46,7 @@ You'll need to provide these informations in the json file, which will be parsed
 }
 ````
 
-To build the APK, a server will be launched using python3 http.server module, listening on port 8000 (you can modify the address and the port of the server in the buildApk.js file if you need it, it may be useful if you want to use a custom deployment server which can be somewhere else other than localhost). This is the default behaviour if you don't populate the PUBLIC_URL field, otherwise the code will trust whatever you used as a public url to be well configured and waiting for connections. Remember that the PUBLIC_URL will be the default endpoint that your app will try to contact to check for new updates, so if it is a local address it will be hard to load updates directly in the APK without rebuilding everything.
+To build the APK, a server will be launched using python3 http.server module, listening on port 8000. This is the default behaviour if you don't populate the PUBLIC_URL field, otherwise the code will trust whatever you used as a public url to be well configured and waiting for connections. Remember that the PUBLIC_URL will be the default endpoint that your app will try to contact to check for new updates, so if it is a local address it will be hard to load updates directly in the APK without rebuilding everything.
 
 ## How to build
 
