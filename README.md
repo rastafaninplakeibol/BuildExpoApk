@@ -62,7 +62,7 @@ If you don't want to rely on expo in any way you can go on reading the chapter.
 
 Before launching the build program, there is just a little tweak on the turtle source code that must be done, because turtle does not accept HTTP custom developement endpoints, and it tells you that only HTTPS is supported, which is a little lie.
 
-In order to avoid to get a valid, signed HTTPS certificate, you just need to go to `/usr/local/lib/node_modules/turtle-cli/build/bin/utils/builder.js` and look for:
+In order to avoid to get a valid, signed HTTPS certificate, you just need to go to `/usr/local/lib/node_modules/turtle-cli/build/bin/utils/builder.js` and look for these lines to comment out:
 ````javascript
 ....
  if (cmd.publicUrl && !cmd.allowNonHttpsPublicUrl) {
