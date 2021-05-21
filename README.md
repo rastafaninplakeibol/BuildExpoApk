@@ -78,7 +78,7 @@ You just need to launch
 ````
 $ node buildApk.js
 ````
-The generated APK will be in the './build' folder
+from the root folder of the project. The generated APK will be in the './build' folder
 
 ## After Building (only if you didn't use an expo public_url in the expo_data.json)
 Once the APK is builded, the first run of the app must have the http python server listening, as the app needs to download assets like images or custom fonts. Of course if there are no assets you can skip this passage, otherwise you just need to launch
