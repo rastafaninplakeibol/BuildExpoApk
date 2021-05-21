@@ -1,5 +1,20 @@
 const { spawn } = require('child_process');
-const fs = require('fs')
+const { readFileSync, writeFileSync, readdirSync, existsSync, rmdirSync } = require('fs');
+const { join } = require('path');
+
+const data = JSON.parse(readFileSync('./expo_data.json'))
+console.log(data)
+
+process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = data.EXPO_ANDROID_KEYSTORE_PASSWORD
+process.env.EXPO_ANDROID_KEY_PASSWORD = data.EXPO_ANDROID_KEY_PASSWORD
+process.env.EXPO_PASSWORD = data.EXPO_PASSWORD
+process.env.EXPO_USERNAME = data.EXPO_USERNAME
+
+const publicURL = data.PUBLIC_URL || 'http://127.0.0.1:8000'
+const allowHTTP = publicURL ? (publicURL.includes('http://') ? true : false) : true
+const isExpoManifestUrl = publicURL.includes('https://exp.host')
+var pythonServer = null
+
 
 function exportAndBuild() {
 	const exporter = spawn('expo', ['export', '--public-url', publicURL, '--dev']);
@@ -17,7 +32,7 @@ function exportAndBuild() {
 function buildApk(exported, code) {
 	if (exported) console.log(`exporter process exited with code ${code}`);
 	if (!exported || exported && code == 0) {
-		if (publicURL.includes('localhost')) {
+		if (publicURL.includes('127.0.0.1:8000')) {
 			process.chdir('./dist')
 
 			pythonServer = spawn('python3', ['-m', 'http.server', '8000']);
@@ -60,28 +75,14 @@ function buildApk(exported, code) {
 	}
 }
 
-const data = JSON.parse(fs.readFileSync('./expo_data.json'))
-console.log(data)
-
-process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = data.EXPO_ANDROID_KEYSTORE_PASSWORD
-process.env.EXPO_ANDROID_KEY_PASSWORD = data.EXPO_ANDROID_KEY_PASSWORD
-process.env.EXPO_PASSWORD = data.EXPO_PASSWORD
-process.env.EXPO_USERNAME = data.EXPO_USERNAME
-
-const publicURL = data.PUBLIC_URL || 'http://localhost:8000'
-const allowHTTP = publicURL ? (publicURL.includes('http://') ? true : false) : true
-const isExpoManifestUrl = publicURL.includes('https://exp.host')
-var pythonServer = null
-
-if (fs.existsSync('./dist')) {
-	fs.rmdirSync('./dist', { recursive: true })
+if (existsSync('./dist')) {
+	rmdirSync('./dist', { recursive: true })
 }
-if (fs.existsSync('./ios')) {
-	fs.rmdirSync('./ios', { recursive: true })
+if (existsSync('./ios')) {
+	rmdirSync('./ios', { recursive: true })
 }
-if (fs.existsSync('./android')) {
-	fs.rmdirSync('./android', { recursive: true })
+if (existsSync('./android')) {
+	rmdirSync('./android', { recursive: true })
 }
-
 if (isExpoManifestUrl) buildApk(false, 0)
 else exportAndBuild()
