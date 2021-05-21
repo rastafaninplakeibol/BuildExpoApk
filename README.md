@@ -87,7 +87,7 @@ $ python3 -m http.server 8000
 ````
 from the './dist' folder created by the building process.
 
-The code in the apk will try to reach server on the public url, which by default is 127.0.0.1:8080, but of course the server is not running on the phone. To redirect localhost addresses to your computer you can use the reverse command of adb:
+The code in the apk will try to reach server on the public url, which by default is 127.0.0.1:8000, but of course the server is not running on the phone. To redirect localhost addresses to your computer you can use the reverse command of adb:
 ````
 $ adb reverse tcp:REMOTE_PORT tcp:LOCAL_PORT
 ````
