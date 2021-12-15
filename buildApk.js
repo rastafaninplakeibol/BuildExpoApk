@@ -1,8 +1,11 @@
 const { spawn } = require('child_process');
-const { readFileSync, writeFileSync, readdirSync, existsSync, rmdirSync } = require('fs');
+const { readFileSync, existsSync, rmSync } = require('fs');
 const { join } = require('path');
 
-const data = JSON.parse(readFileSync('./expo_data.json'))
+
+const cwd = process.cwd()
+
+const data = JSON.parse(readFileSync(join(cwd,'expo_data.json')))
 console.log(data)
 
 process.env.EXPO_ANDROID_KEYSTORE_PASSWORD = data.EXPO_ANDROID_KEYSTORE_PASSWORD
@@ -75,14 +78,14 @@ function buildApk(exported, code) {
 	}
 }
 
-if (existsSync('./dist')) {
-	rmdirSync('./dist', { recursive: true })
+if (existsSync(join(cwd,'dist'))) {
+	rmSync(join(cwd, 'dist'), { recursive: true })
 }
-if (existsSync('./ios')) {
-	rmdirSync('./ios', { recursive: true })
+if (existsSync(join(cwd,'ios'))) {
+	rmSync(join(cwd, 'ios'), { recursive: true })
 }
-if (existsSync('./android')) {
-	rmdirSync('./android', { recursive: true })
+if (existsSync(join(cwd,'android'))) {
+	rmSync(join(cwd, 'android'), { recursive: true })
 }
 if (isExpoManifestUrl) buildApk(false, 0)
 else exportAndBuild()
