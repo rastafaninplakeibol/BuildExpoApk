@@ -56,10 +56,9 @@ $ expo publish
 ````
 which looks something like `https://exp.host/@yourusername/yourappname/index.exp?sdkVersion=x.y.z`. In this way you can update your standalone app just by running `expo publish` again and closing and opening again the app 2 times (for android, just one for ios). It is maybe the raccomended way as it avoid to export everything again and you dont need to launch any deployment server etc.
 
-If you don't want to rely on expo in any way you can go on reading the chapter.
+**N.B** Now there is no need as i've found the flag `--allow-non-https-public-url`, but if you run into some trouble because of the http url read the following paragraph
 
-**N.B** Now there is no need as i've found the flag `--allow-non-https-public-url`, but if you run into some trouble because of the http url read the following chapter
-
+## Little tweak to the code
 Before launching the build program, there is just a little tweak on the turtle source code that must be done, because turtle does not accept HTTP custom developement endpoints, and it tells you that only HTTPS is supported, which is a little lie.
 
 In order to avoid to get a valid, signed HTTPS certificate, you just need to go to `/usr/local/lib/node_modules/turtle-cli/build/bin/utils/builder.js` and look for these lines to comment out:
@@ -73,19 +72,25 @@ In order to avoid to get a valid, signed HTTPS certificate, you just need to go 
  }
 ....
 ````
-Then you just need to launch
+## Building
+
+You just need to launch
 ````
 $ node buildApk.js
 ````
-The generated APK will be in the './build' folder
+from the root folder of the project. The generated APK will be in the './build' folder
 
-## After Building (only if you didn't use a custom public_url in the expo_data.json)
+## After Building (only if you didn't use an expo public_url in the expo_data.json)
 Once the APK is builded, the first run of the app must have the http python server listening, as the app needs to download assets like images or custom fonts. Of course if there are no assets you can skip this passage, otherwise you just need to launch
 ````
 $ python3 -m http.server 8000
 ````
-from the './dist' folder created by the building process
+from the './dist' folder created by the building process.
 
+The code in the apk will try to reach server on the public url, which by default is 127.0.0.1:8000, but of course the server is not running on the phone. To redirect localhost addresses to your computer you can use the reverse command of adb:
+````
+$ adb reverse tcp:REMOTE_PORT tcp:LOCAL_PORT
+````
 
 ## Troubleshooting:
 * You may need to setup the android SDK for turtle. You can launch `$ turtle setup:android (--sdk-version X.Y.Z //optional)` to set it up, or run the script and turtle will do it automatically.
