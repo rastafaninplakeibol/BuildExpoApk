@@ -3,6 +3,8 @@ const { readFileSync, existsSync, rmSync } = require('fs');
 const { join } = require('path');
 
 
+
+
 const cwd = process.cwd()
 
 const data = JSON.parse(readFileSync(join(cwd,'expo_data.json')))
